@@ -1,0 +1,7 @@
+{
+  "name": "Qur'aan iyo Soomaali",
+  "description": "A comprehensive Quran application featuring Arabic text, Somali translation, and an AI-powered spiritual assistant for deeper understanding.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
