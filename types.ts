@@ -19,13 +19,59 @@ export interface Ayah {
   hizbQuarter: number;
   sajda: boolean;
   translation?: string;
+  audio?: string;
+  audioUrls?: string[]; 
+  surah?: Surah;
 }
 
 export interface SurahDetail extends Surah {
   ayahs: Ayah[];
 }
 
+export interface PageDetail {
+  number: number;
+  ayahs: Ayah[];
+}
+
 export interface ChatMessage {
   role: 'user' | 'model';
   text: string;
+}
+
+export interface User {
+  email: string;
+  name: string;
+}
+
+export type AppView = 'quran' | 'adkaar' | 'prayer' | 'page-reading' | 'voice-test';
+export type AuthMode = 'login' | 'signup' | 'landing' | 'authenticated';
+
+// Fix: Added missing Reciter interface to resolve import errors in Quran-related components
+export interface Reciter {
+  id: string;
+  name: string;
+  englishName: string;
+}
+
+// Fix: Added missing AdkaarItem interface for the Adkaar component data
+export interface AdkaarItem {
+  category: string;
+  arabic: string;
+  somali: string;
+  count: number;
+  reference: string;
+}
+
+// Fix: Added missing PrayerTimesData interface for prayer timing services
+export interface PrayerTimesData {
+  Fajr: string;
+  Sunrise: string;
+  Dhuhr: string;
+  Asr: string;
+  Sunset: string;
+  Maghrib: string;
+  Isha: string;
+  Imsak: string;
+  Midnight: string;
+  [key: string]: string;
 }

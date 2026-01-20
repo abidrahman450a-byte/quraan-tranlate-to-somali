@@ -5,7 +5,7 @@ export class GeminiService {
   private ai: GoogleGenAI;
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   }
 
   async askAboutAyah(ayahText: string, translation: string, question: string) {
@@ -50,6 +50,25 @@ export class GeminiService {
     } catch (error) {
       console.error('Gemini API error:', error);
       return "Ma awoodin inaan soo koobo suuradda hadda.";
+    }
+  }
+
+  async getVoiceTips() {
+    const prompt = `
+      Fadlan bixi 5 talo oo muhiim ah oo ku saabsan sida loo hagaajiyo codka iyo akhriska Qur'aanka (Tajwiidka iyo laxanka).
+      Talooyinka ha ku qornaadaan Af-Soomaali, si dhiirigelin lehna u qor.
+      U hadal sidii macalin Qur'aan oo kale.
+    `;
+
+    try {
+      const response = await this.ai.models.generateContent({
+        model: 'gemini-3-flash-preview',
+        contents: prompt,
+      });
+      return response.text;
+    } catch (error) {
+      console.error('Gemini API error:', error);
+      return "Ma awoodin inaan helo talooyinka hadda.";
     }
   }
 }

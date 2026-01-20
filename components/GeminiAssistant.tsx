@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Ayah, ChatMessage } from '../types';
-import { geminiService } from '../services/geminiService';
+import { geminiService } from './services/geminiService';
 
 interface GeminiAssistantProps {
   selectedAyah?: Ayah;

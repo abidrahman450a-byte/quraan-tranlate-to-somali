@@ -1,7 +1,8 @@
 {
   "name": "Qur'aan iyo Soomaali",
-  "description": "A comprehensive Quran application featuring Arabic text, Somali translation, and an AI-powered spiritual assistant for deeper understanding.",
+  "description": "A comprehensive Quran application featuring Arabic text, Somali translation, prayer times, Qibla, and AI-powered spiritual assistant.",
   "requestFramePermissions": [
-    "microphone"
+    "microphone",
+    "geolocation"
   ]
 }
