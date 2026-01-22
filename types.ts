@@ -46,14 +46,12 @@ export interface User {
 export type AppView = 'quran' | 'adkaar' | 'prayer' | 'page-reading' | 'voice-test';
 export type AuthMode = 'login' | 'signup' | 'landing' | 'authenticated';
 
-// Fix: Added missing Reciter interface to resolve import errors in Quran-related components
 export interface Reciter {
   id: string;
   name: string;
   englishName: string;
 }
 
-// Fix: Added missing AdkaarItem interface for the Adkaar component data
 export interface AdkaarItem {
   category: string;
   arabic: string;
@@ -62,7 +60,6 @@ export interface AdkaarItem {
   reference: string;
 }
 
-// Fix: Added missing PrayerTimesData interface for prayer timing services
 export interface PrayerTimesData {
   Fajr: string;
   Sunrise: string;

@@ -10,19 +10,16 @@
     <meta name="title" content="Qur'aan iyo Soomaali - Akhris iyo Faham">
     <meta name="description" content="Kariimka ah oo leh fasiraad Soomaali, codadka qaariga, iyo kaaliyaha AI oo kaa caawinaya fahamka aayadaha.">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Qur'aan iyo Soomaali - Akhris iyo Faham">
-    <meta property="og:description" content="Baro Qur'aanka Kariimka ah adigoo adeegsanaya translation-ka Soomaaliga ah iyo fahamka AI-ga.">
-    <meta property="og:image" content="https://api.dicebear.com/7.x/initials/svg?seed=QuranSomali&backgroundColor=059669">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Qur'aan iyo Soomaali - Akhris iyo Faham">
-    <meta property="twitter:description" content="Baro Qur'aanka Kariimka ah adigoo adeegsanaya translation-ka Soomaaliga ah iyo fahamka AI-ga.">
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Safety Shim for process.env -->
+    <script>
+      if (typeof window.process === 'undefined') {
+        window.process = { env: { NODE_ENV: 'production' } };
+      }
+    </script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -52,13 +49,23 @@
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
-<script type="importmap">
+
+    <script type="importmap">
 {
   "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "@google/genai": "https://esm.sh/@google/genai@1.3.0",
     "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
   }
 }
@@ -66,5 +73,6 @@
 </head>
 <body>
     <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
