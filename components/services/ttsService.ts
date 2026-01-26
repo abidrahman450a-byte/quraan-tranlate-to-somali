@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Modality } from "@google/genai";
 
 export class TTSService {
@@ -6,10 +7,17 @@ export class TTSService {
   private audioCtx: AudioContext | null = null;
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // Fallback to empty string to prevent crash
+    const apiKey = process.env.API_KEY || "MISSING_KEY";
+    this.ai = new GoogleGenAI({ apiKey });
   }
 
   async generateSomaliAudio(text: string): Promise<Uint8Array | null> {
+    if (!process.env.API_KEY) {
+      console.warn("API Key missing for TTS");
+      return null;
+    }
+
     try {
       const response = await this.ai.models.generateContent({
         model: "gemini-2.5-flash-preview-tts",
@@ -36,6 +44,8 @@ export class TTSService {
   }
 
   async reciteArabicAyah(arabicText: string): Promise<Uint8Array | null> {
+    if (!process.env.API_KEY) return null;
+
     try {
       const response = await this.ai.models.generateContent({
         model: "gemini-2.5-flash-preview-tts",

@@ -1,13 +1,21 @@
+
 import { GoogleGenAI } from "@google/genai";
 
 export class GeminiService {
   private ai: GoogleGenAI;
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // Fallback to empty string to prevent immediate crash if key is missing
+    const apiKey = process.env.API_KEY || "MISSING_KEY";
+    this.ai = new GoogleGenAI({ apiKey });
   }
 
   async askAboutAyah(ayahText: string, translation: string, question: string) {
+    // Check key before calling API to give friendly error
+    if (!process.env.API_KEY) {
+      return "Fadlan marka hore geli API Key-ga (Netlify Environment Variables).";
+    }
+
     const prompt = `
       Macluumaadka soo socda waa aayad ka mid ah Qur'aanka kariimka ah:
       Carabi: "${ayahText}"
@@ -27,11 +35,13 @@ export class GeminiService {
       return response.text;
     } catch (error) {
       console.error('Gemini API error:', error);
-      return "Waan ka xumahay, cilad ayaa dhacday markii aan isku dayayey inaan ka jawaabo su'aashaada. Fadlan isku day markale.";
+      return "Waan ka xumahay, cilad ayaa dhacday markii aan isku dayayey inaan ka jawaabo su'aashaada. Fadlan hubi Internet-ka ama API Key-ga.";
     }
   }
 
   async summarizeSurah(surahName: string, englishName: string) {
+    if (!process.env.API_KEY) return "API Key lama helin.";
+
     const prompt = `
       Fadlan bixi dulmar guud (Summary) oo ku saabsan Suuradda ${surahName} (${englishName}) ee Qur'aanka kariimka ah. 
       Dulmarku ha ku qornaado Af-Soomaali, kana koobnaado:
@@ -53,6 +63,8 @@ export class GeminiService {
   }
 
   async getVoiceTips() {
+    if (!process.env.API_KEY) return "API Key lama helin.";
+
     const prompt = `
       Fadlan bixi 5 talo oo muhiim ah oo ku saabsan sida loo hagaajiyo codka iyo akhriska Qur'aanka (Tajwiidka iyo laxanka).
       Talooyinka ha ku qornaadaan Af-Soomaali, si dhiirigelin lehna u qor.
