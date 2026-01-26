@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Layout from './components/Layout';
 import SurahList from './components/SurahList';
@@ -7,7 +6,7 @@ import GeminiAssistant from './components/GeminiAssistant';
 import PrayerTimes from './components/PrayerTimes';
 import Adkaar from './components/Adkaar';
 import PageReader from './components/PageReader';
-import LandingPage from './components/LandingPage';
+import LandingPage from './LandingPage';
 import Auth from './components/Auth';
 import VoiceTest from './components/VoiceTest';
 import { fetchSurahList, fetchSurahWithTranslation } from './quranApi';
