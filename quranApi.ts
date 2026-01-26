@@ -4,19 +4,11 @@ import { Surah, SurahDetail, PageDetail, Reciter } from './types';
 const BASE_URL = 'https://api.alquran.cloud/v1';
 
 export const RECITERS: Reciter[] = [
-  { id: 'ai.gemini', name: 'AI Reciter (Gemini)', englishName: 'AI Virtual Qari' },
   { id: 'ar.abdurrahmaansudais', name: 'Cabdiraxmaan Al-Sudays', englishName: 'Abdul Rahman Al-Sudais' },
-  { id: 'ar.abdullahmatroud', name: 'Cabdullaahi Matruud', englishName: 'Abdullah Matroud' },
-  { id: 'ar.abdulwadoodhaneef', name: 'Cabdulwaduud Xaniif (Wajid)', englishName: 'Abdul Wadud Haneef' },
-  { id: 'ar.alafasy', name: 'Mishary Rashiid Al-Cafaasi', englishName: 'Mishary Rashid Alafasy' },
-  { id: 'ar.maheralmuaiqly', name: 'Maahir Al-Mucayqali', englishName: 'Maher Al-Muaiqly' },
-  { id: 'ar.saadghamidi', name: 'Sacad Al-Ghaamidi', englishName: 'Saad Al-Ghamdi' },
-  { id: 'ar.abdulsamad', name: 'Cabdulbaasit Cabdusamad', englishName: 'Abdul Basit Abdul Samad' }
+  { id: 'ar.abdullahmatroud', name: 'Cabdullaahi Matruud', englishName: 'Abdullah Matroud' }
 ];
 
 const getAudioUrlList = (reciterId: string, ayahGlobalIndex: number, surahNumber: number, ayahInSurah: number): string[] => {
-  if (reciterId === 'ai.gemini') return []; // AI doesn't use URLs
-
   const globalNum = Math.max(1, Math.min(6236, Math.floor(ayahGlobalIndex)));
   const sStr = surahNumber.toString().padStart(3, '0');
   const aStr = ayahInSurah.toString().padStart(3, '0');
@@ -24,12 +16,7 @@ const getAudioUrlList = (reciterId: string, ayahGlobalIndex: number, surahNumber
   
   const folderMap: Record<string, string> = {
     'ar.abdurrahmaansudais': 'Abdurrahmaan_As-Sudais_192kbps',
-    'ar.alafasy': 'Rashid_Alafasy_128kbps',
-    'ar.maheralmuaiqly': 'Maher_AlMuaiqly_64kbps',
-    'ar.saadghamidi': 'Saad_Al_Ghamidi_128kbps',
-    'ar.abdulsamad': 'Abdul_Basit_Murattal_192kbps',
-    'ar.abdullahmatroud': 'Abdullah_Matroud_128kbps',
-    'ar.abdulwadoodhaneef': 'Abdul_Wadood_Haneef_128kbps'
+    'ar.abdullahmatroud': 'Abdullah_Matroud_128kbps'
   };
 
   const folder = folderMap[reciterId];
