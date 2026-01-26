@@ -10,9 +10,36 @@
     <meta name="title" content="Qur'aan iyo Soomaali - Akhris iyo Faham">
     <meta name="description" content="Kariimka ah oo leh fasiraad Soomaali, codadka qaariga, iyo kaaliyaha AI oo kaa caawinaya fahamka aayadaha.">
 
-    <!-- Tailwind CSS (Using CDN for simplicity, though PostCSS is better for prod) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CRITICAL FIX: Error Handler & Process Shim -->
+    <script>
+      // 1. Global Error Handler: Shows error on screen instead of white screen
+      window.onerror = function(message, source, lineno, colno, error) {
+        const root = document.getElementById('root');
+        // Only show if root is empty (meaning App crashed before rendering)
+        if (root && root.innerHTML.trim() === '') {
+           document.body.innerHTML = `
+             <div style="padding: 20px; font-family: sans-serif; color: #7f1d1d; background: #fef2f2; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+               <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 10px;">Cilad ayaa dhacday (App Error)</h1>
+               <p style="margin-bottom: 20px;">Fadlan sawirkan u dir sameeyaha (Developer):</p>
+               <pre style="background: white; padding: 15px; border-radius: 8px; overflow: auto; border: 1px solid #fca5a5; max-width: 90%; text-align: left;">${message}\n\nFile: ${source}\nLine: ${lineno}</pre>
+               <button onclick="window.location.reload()" style="margin-top:20px; padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 5px; cursor: pointer;">Dib u fur (Reload)</button>
+             </div>
+           `;
+        }
+      };
+
+      // 2. Process Shim: Prevents "process is not defined" error in Vite
+      window.process = { 
+        env: { 
+          NODE_ENV: 'production',
+          API_KEY: '' // This prevents the crash, actual key comes from build or env
+        } 
+      };
+    </script>
 
     <style>
         body {
@@ -47,11 +74,11 @@
 <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
     "vite": "https://esm.sh/vite@^7.3.1"
   }
 }
